@@ -3,7 +3,8 @@
 #define IS_LIT(x) (x & 1)
 #define COLOUR_INDEX(x) ((x & 0xfe) >> 1)
 
-typedef unsigned short int Cell;
+typedef unsigned char Cell;
+typedef unsigned char byte;
 typedef Cell Board[BOARD_SIZE][BOARD_SIZE];
 
 class GameOfLife {
@@ -11,10 +12,10 @@ class GameOfLife {
     GameOfLife();
     void reset();
     void evolve();
-    void writeColourIndices(int[]);
+    inline void writeColourIndices(byte[]);
 
     private:
-    int countNeighbours(int, int);
-    void updateBoard(Board);
+    inline byte countNeighbours(byte, byte);
+    inline void updateBoard(Board);
     Board board;
 };

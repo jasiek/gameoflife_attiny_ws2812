@@ -31,9 +31,10 @@ void setup() {
 void loop() {
   while (1) {
     game.evolve();
-    int colours[NUM_LEDS];
+    byte colours[NUM_LEDS];
     game.writeColourIndices(colours);
-    for (int i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
+    for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
     FastLED.show();
+    delay(100);
   }
 }
