@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <string.h>
 #define BOARD_SIZE 8
 #define IS_LIT(x) (x & 1)
@@ -14,6 +15,7 @@ class GameOfLife {
     void reset();
     void evolve();
     void writeColourIndices(byte[]);
+    void debug(Print&);
 
     private:
     inline byte countNeighbours(byte, byte);
