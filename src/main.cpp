@@ -5,7 +5,7 @@
 #define NUM_LEDS BOARD_SIZE * BOARD_SIZE
 #define CHIPSET WS2812
 #define COLOR_ORDER GRB
-#define LED_PIN PB1
+#define LED_PIN PB0
 
 unsigned long colour_map[] = {
   CRGB::Black,
@@ -26,6 +26,7 @@ GameOfLife game;
 void setup() {
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
   FastLED.show();
+  game.init(1904);
 }
 
 void loop() {

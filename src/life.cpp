@@ -4,6 +4,15 @@ GameOfLife::GameOfLife() {
     this->reset();
 }
 
+void GameOfLife::init(int matrix) {
+    for (byte x = 2; x < 6; x++) {
+        for (byte y = 2; y < 6; y++) {
+            this->board[x][y] = matrix & 1;
+            matrix >> 1;
+        }
+    }
+}
+
 void GameOfLife::reset() {
     memset(this->board, 0, BOARD_SIZE);
 }
@@ -29,7 +38,7 @@ void GameOfLife::evolve() {
     this->updateBoard(newboard);
 }
 
-inline void GameOfLife::updateBoard(Board newboard) {
+void GameOfLife::updateBoard(Board newboard) {
     memcpy(this->board, newboard, BOARD_SIZE * BOARD_SIZE);
 }
 

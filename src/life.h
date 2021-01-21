@@ -10,9 +10,10 @@ typedef Cell Board[BOARD_SIZE][BOARD_SIZE];
 class GameOfLife {
     public:
     GameOfLife();
+    void init(int);
     void reset();
     void evolve();
-    inline void writeColourIndices(byte[]);
+    void writeColourIndices(byte[]);
 
     private:
     inline byte countNeighbours(byte, byte);
