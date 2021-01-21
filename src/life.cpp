@@ -8,7 +8,7 @@ void GameOfLife::init(int matrix) {
     for (byte x = 2; x < 6; x++) {
         for (byte y = 2; y < 6; y++) {
             this->board[x][y] = matrix & 1;
-            matrix >> 1;
+            matrix /= 2;
         }
     }
 }
@@ -47,7 +47,7 @@ void GameOfLife::writeColourIndices(byte destination[]) {
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
             if (IS_LIT(this->board[x][y])) {
-                destination[counter] = 9;
+                destination[counter] = 5;
             }
             counter++;
             //destination[counter++] = COLOUR_INDEX(this->board[x][y]);
