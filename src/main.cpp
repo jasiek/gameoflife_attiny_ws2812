@@ -16,8 +16,7 @@ unsigned long colour_map[] = {
   CRGB::GreenYellow,
   CRGB::Yellow,
   CRGB::Orange,
-  CRGB::Red,
-  CRGB::White
+  CRGB::Red
 };
 
 CRGB leds[NUM_LEDS];
@@ -30,8 +29,8 @@ void setup() {
   FastLED.setBrightness(16);
   for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[5];
   FastLED.show();
-  game.init(8560);
-  //game.init(1983);
+  //game.init(8560);
+  game.init(1983);
   game.debug(Serial);
 }
 
@@ -42,7 +41,7 @@ void loop() {
     game.writeColourIndices(colours);
     for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
     FastLED.show();
-    delay(100);
+    delay(1000);
     game.debug(Serial);
     game.evolve();
   }

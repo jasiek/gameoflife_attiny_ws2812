@@ -33,13 +33,28 @@ byte GameOfLife::countNeighbours(byte x, byte y) {
 void GameOfLife::evolve() {
     // tested
     Board newboard;
+    this->copyColoursAndDecay(newboard);
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
             byte neighbours = this->countNeighbours(x, y);
-            newboard[x][y] = (neighbours == 3 || (neighbours == 2 && this->board[x][y]));
+            // light up what needs to be lit up
+            if (neighbours == 3 || (neighbours == 2 && this->board[x][y])) {
+                // colour me red, and light up
+                newboard[x][y] = (8 << 1) + 1;
+            }
         }
     }
     this->updateBoard(newboard);
+}
+
+void GameOfLife::copyColoursAndDecay(Board newboard) {
+    // copy current colouring, mark all cells as unlit
+    // decay all colours on board
+    for (byte x = 0; x < BOARD_SIZE; x++) {
+        for (byte y = 0; y < BOARD_SIZE; y++) {
+            newboard[x][y] = DECAY(COLOUR_INDEX(this->board[x][y]));
+        }
+    }
 }
 
 void GameOfLife::updateBoard(Board newboard) {
@@ -50,10 +65,7 @@ void GameOfLife::writeColourIndices(byte destination[]) {
     byte counter = 0;
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
-            if (IS_LIT(this->board[x][y])) {
-                destination[counter] = 8;
-            }
-            counter++;
+            destination[counter++] = COLOUR_INDEX(this->board[x][y]);
         }
     }
 }
@@ -63,6 +75,14 @@ void GameOfLife::debug(Print &p) {
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
             p.print(this->board[x][y]);
+            p.print(", ");
+        }
+        p.println();
+    }
+    p.println("colours");
+    for (byte x = 0; x < BOARD_SIZE; x++) {
+        for (byte y = 0; y < BOARD_SIZE; y++) {
+            p.print(COLOUR_INDEX(this->board[x][y]));
             p.print(", ");
         }
         p.println();

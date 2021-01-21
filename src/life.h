@@ -3,6 +3,7 @@
 #define BOARD_SIZE 8
 #define IS_LIT(x) (x & 1)
 #define COLOUR_INDEX(x) ((x & 0xfe) >> 1)
+#define DECAY(x) (((x >> 1) - 1) << 1)
 
 typedef unsigned char Cell;
 typedef unsigned char byte;
@@ -20,5 +21,6 @@ class GameOfLife {
     private:
     inline byte countNeighbours(byte, byte);
     inline void updateBoard(Board);
+    inline void copyColoursAndDecay(Board);
     Board board;
 };
