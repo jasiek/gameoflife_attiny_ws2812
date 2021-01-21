@@ -5,7 +5,7 @@
 #define NUM_LEDS BOARD_SIZE * BOARD_SIZE
 #define CHIPSET WS2812
 #define COLOR_ORDER GRB
-#define LED_PIN 2
+#define LED_PIN PB1
 
 unsigned long colour_map[] = {
   CRGB::Black,
