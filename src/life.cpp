@@ -46,7 +46,11 @@ void GameOfLife::writeColourIndices(byte destination[]) {
     byte counter = 0;
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
-            destination[counter++] = COLOUR_INDEX(this->board[x][y]);
+            if (IS_LIT(this->board[x][y])) {
+                destination[counter] = 9;
+            }
+            counter++;
+            //destination[counter++] = COLOUR_INDEX(this->board[x][y]);
         }
     }
 }

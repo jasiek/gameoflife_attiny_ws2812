@@ -16,7 +16,8 @@ unsigned long colour_map[] = {
   CRGB::GreenYellow,
   CRGB::Yellow,
   CRGB::Orange,
-  CRGB::Red
+  CRGB::Red,
+  CRGB::White
 };
 
 CRGB leds[NUM_LEDS];
