@@ -22,6 +22,7 @@ void GameOfLife::reset() {
 byte GameOfLife::countNeighbours(byte x, byte y) {
     // Look at the LSB, we use the rest of the bits to indicate colour.
     byte count = 0;
+    // These need to be chars (signed) for the indexing to work.
     for (char x1 = x - 1; x1 <= x + 1; x1++)
         for (char y1 = y - 1; y1 <= y + 1; y1++)
           if (IS_LIT(this->board[(x1 + BOARD_SIZE) % BOARD_SIZE][(y1 + BOARD_SIZE) % BOARD_SIZE]))
