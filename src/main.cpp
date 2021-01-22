@@ -23,6 +23,7 @@ unsigned long colour_map[] = {
 CRGB leds[NUM_LEDS];
 
 GameOfLife game;
+int state = INITIAL_STATE;
 
 void setup() {
   Serial.begin(115200);
@@ -31,7 +32,7 @@ void setup() {
   for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[5];
   FastLED.show();
   //game.init(8560);
-  game.init(INITIAL_STATE);
+  game.init(state);
   game.debug(Serial);
 }
 
@@ -45,7 +46,7 @@ void loop() {
     delay(1000);
 
     if (game.isFinished()) {
-      game.init(INITIAL_STATE);
+      game.init(state++);
       return;
     }
     game.debug(Serial);
