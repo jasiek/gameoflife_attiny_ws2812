@@ -6,6 +6,7 @@
 #define CHIPSET WS2812
 #define COLOR_ORDER GRB
 #define LED_PIN 10
+#define INITIAL_STATE 1983
 
 unsigned long colour_map[] = {
   CRGB::Black,
@@ -30,7 +31,7 @@ void setup() {
   for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[5];
   FastLED.show();
   //game.init(8560);
-  game.init(1983);
+  game.init(INITIAL_STATE);
   game.debug(Serial);
 }
 
@@ -42,6 +43,11 @@ void loop() {
     for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
     FastLED.show();
     delay(1000);
+
+    if (game.isFinished()) {
+      game.init(INITIAL_STATE);
+      return;
+    }
     game.debug(Serial);
     game.evolve();
   }

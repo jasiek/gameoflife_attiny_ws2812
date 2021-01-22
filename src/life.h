@@ -13,14 +13,15 @@ class GameOfLife {
     public:
     GameOfLife();
     void init(int);
-    void reset();
     void evolve();
     void writeColourIndices(byte[]);
     void debug(Print&);
+    bool isFinished();
 
     private:
-    inline byte countNeighbours(byte, byte);
-    inline void updateBoard(Board);
-    inline void copyColoursAndDecay(Board);
+    void clearBoard(Board);
+    byte countNeighbours(byte, byte);
+    void updateBoard(Board);
+    void copyColoursAndDecay(Board);
     Board board;
 };

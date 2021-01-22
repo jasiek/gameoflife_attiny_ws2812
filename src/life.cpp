@@ -1,7 +1,7 @@
 #include <life.h>
 
 GameOfLife::GameOfLife() {
-    this->reset();
+    this->clearBoard(this->board);
 }
 
 void GameOfLife::init(int matrix) {
@@ -14,9 +14,9 @@ void GameOfLife::init(int matrix) {
     }
 }
 
-void GameOfLife::reset() {
+void GameOfLife::clearBoard(Board board) {
     // tested
-    memset(this->board, 0, BOARD_SIZE * BOARD_SIZE);
+    memset(board, 0, BOARD_SIZE * BOARD_SIZE);
 }
 
 byte GameOfLife::countNeighbours(byte x, byte y) {
@@ -33,7 +33,8 @@ byte GameOfLife::countNeighbours(byte x, byte y) {
 void GameOfLife::evolve() {
     // tested
     Board newboard;
-    this->copyColoursAndDecay(newboard);
+    this->clearBoard(newboard);
+    //this->copyColoursAndDecay(newboard);
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
             byte neighbours = this->countNeighbours(x, y);
@@ -68,6 +69,14 @@ void GameOfLife::writeColourIndices(byte destination[]) {
             destination[counter++] = COLOUR_INDEX(this->board[x][y]);
         }
     }
+}
+
+bool GameOfLife::isFinished() {
+    for (byte x = 0; x < BOARD_SIZE; x++)
+        for (byte y = 0; y < BOARD_SIZE; y++)
+            if (IS_LIT(this->board[x][y]))
+                return false;
+    return true;
 }
 
 void GameOfLife::debug(Print &p) {
