@@ -23,6 +23,10 @@ unsigned long colour_map[] = {
 CRGB leds[NUM_LEDS];
 
 GameOfLife game;
+
+// Interesting states:
+// 1989 - loops
+// 8560 - glider
 int state = INITIAL_STATE;
 
 void setup() {
@@ -39,6 +43,7 @@ void setup() {
 byte colours[NUM_LEDS];
 void loop() {
   while (1) {
+    Serial.println(state);
     for (byte i = 0; i < NUM_LEDS; i++) colours[i] = colour_map[0];
     game.writeColourIndices(colours);
     for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
