@@ -25,8 +25,7 @@ byte GameOfLife::countNeighbours(byte x, byte y) {
     // These need to be chars (signed) for the indexing to work.
     for (char x1 = x - 1; x1 <= x + 1; x1++)
         for (char y1 = y - 1; y1 <= y + 1; y1++)
-          if (IS_LIT(this->board[(x1 + BOARD_SIZE) % BOARD_SIZE][(y1 + BOARD_SIZE) % BOARD_SIZE]))
-            count++;
+          count += IS_LIT(this->board[(x1 + BOARD_SIZE) % BOARD_SIZE][(y1 + BOARD_SIZE) % BOARD_SIZE]);
     return count - (IS_LIT(this->board[x][y]));
 }
 
@@ -34,12 +33,12 @@ void GameOfLife::evolve() {
     // tested
     Board newboard;
     this->clearBoard(newboard);
-    //this->copyColoursAndDecay(newboard);
+    this->copyColoursAndDecay(newboard);
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
             byte neighbours = this->countNeighbours(x, y);
             // light up what needs to be lit up
-            if (neighbours == 3 || (neighbours == 2 && this->board[x][y])) {
+            if (neighbours == 3 || (neighbours == 2 && IS_LIT(this->board[x][y]))) {
                 // colour me red, and light up
                 newboard[x][y] = (8 << 1) + 1;
             }
@@ -53,7 +52,7 @@ void GameOfLife::copyColoursAndDecay(Board newboard) {
     // decay all colours on board
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
-            newboard[x][y] = DECAY(COLOUR_INDEX(this->board[x][y]));
+            newboard[x][y] = DECAY(this->board[x][y]);
         }
     }
 }
@@ -80,19 +79,15 @@ bool GameOfLife::isFinished() {
 }
 
 void GameOfLife::debug(Print &p) {
-    p.println("game state:");
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
-            p.print(this->board[x][y]);
-            p.print(", ");
+            p.print(IS_LIT(this->board[x][y]) ? "*" : " ");
+            p.print(" ");
         }
-        p.println();
-    }
-    p.println("colours");
-    for (byte x = 0; x < BOARD_SIZE; x++) {
+        p.print(" | ");
         for (byte y = 0; y < BOARD_SIZE; y++) {
             p.print(COLOUR_INDEX(this->board[x][y]));
-            p.print(", ");
+            p.print(" ");
         }
         p.println();
     }

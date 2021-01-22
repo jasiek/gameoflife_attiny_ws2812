@@ -6,7 +6,7 @@
 #define CHIPSET WS2812
 #define COLOR_ORDER GRB
 #define LED_PIN 10
-#define INITIAL_STATE 1983
+#define INITIAL_STATE 1989
 
 unsigned long colour_map[] = {
   CRGB::Black,
@@ -16,7 +16,7 @@ unsigned long colour_map[] = {
   CRGB::Green,
   CRGB::GreenYellow,
   CRGB::Yellow,
-  CRGB::Orange,
+  CRGB::OrangeRed,
   CRGB::Red
 };
 
@@ -27,34 +27,27 @@ GameOfLife game;
 // Interesting states:
 // 1989 - loops
 // 8560 - glider
+// 3754 - end state is a letter D
 int state = INITIAL_STATE;
 
 void setup() {
   Serial.begin(115200);
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
-  FastLED.setBrightness(16);
-  for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[5];
-  FastLED.show();
-  //game.init(8560);
+  FastLED.setBrightness(5);
+
   game.init(state);
   game.debug(Serial);
 }
 
 byte colours[NUM_LEDS];
 void loop() {
-  while (1) {
-    Serial.println(state);
-    for (byte i = 0; i < NUM_LEDS; i++) colours[i] = colour_map[0];
+  while (!game.isFinished()) {
     game.writeColourIndices(colours);
     for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
-    FastLED.show();
-    delay(1000);
-
-    if (game.isFinished()) {
-      game.init(state++);
-      return;
-    }
     game.debug(Serial);
+    FastLED.show();
+    delay(10);
     game.evolve();
   }
+  game.init(state++);
 }
