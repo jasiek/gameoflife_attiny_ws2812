@@ -13,7 +13,7 @@
 #define LED_PIN 10
 #endif
 
-unsigned long colour_map[] = {
+const unsigned long colour_map[] = {
   CRGB::Black,
   CRGB::DarkBlue,
   CRGB::Blue,
@@ -47,11 +47,9 @@ void setup() {
 #endif
 }
 
-byte colours[NUM_LEDS];
 void loop() {
   while (!game.isFinished()) {
-    game.writeColourIndices(colours);
-    for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
+    for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[game.getColourIndex(i)];
 #ifndef __AVR_ATtiny85__
     game.debug(Serial);
 #endif

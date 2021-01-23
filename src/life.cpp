@@ -9,7 +9,7 @@ void GameOfLife::init(long long matrix) {
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
             this->board[x][y] = matrix & 1;
-            matrix /= 2;
+            matrix >> 1;
         }
     }
 }
@@ -61,13 +61,8 @@ void GameOfLife::updateBoard(Board newboard) {
     memcpy(this->board, newboard, BOARD_SIZE * BOARD_SIZE);
 }
 
-void GameOfLife::writeColourIndices(byte destination[]) {
-    byte counter = 0;
-    for (byte x = 0; x < BOARD_SIZE; x++) {
-        for (byte y = 0; y < BOARD_SIZE; y++) {
-            destination[counter++] = COLOUR_INDEX(this->board[x][y]);
-        }
-    }
+byte GameOfLife::getColourIndex(byte index) {
+    return COLOUR_INDEX(this->board[index / BOARD_SIZE][index % BOARD_SIZE]);
 }
 
 bool GameOfLife::isFinished() {
