@@ -78,6 +78,7 @@ bool GameOfLife::isFinished() {
     return true;
 }
 
+#ifndef __AVR_ATtiny85__
 void GameOfLife::debug(Print &p) {
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
@@ -92,3 +93,4 @@ void GameOfLife::debug(Print &p) {
         p.println();
     }
 }
+#endif

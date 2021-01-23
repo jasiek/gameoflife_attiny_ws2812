@@ -15,7 +15,9 @@ class GameOfLife {
     void init(long long);
     void evolve();
     void writeColourIndices(byte[]);
+#ifndef __AVR_ATtiny85__
     void debug(Print&);
+#endif
     bool isFinished();
 
     private:
