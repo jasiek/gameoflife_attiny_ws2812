@@ -6,7 +6,7 @@
 #define CHIPSET WS2812
 #define COLOR_ORDER GRB
 #define LED_PIN 10
-#define INITIAL_STATE 1989
+#define INITIAL_STATE 2779831273LL
 
 unsigned long colour_map[] = {
   CRGB::Black,
@@ -28,7 +28,8 @@ GameOfLife game;
 // 1989 - loops
 // 8560 - glider
 // 3754 - end state is a letter D
-int state = INITIAL_STATE;
+// 27712 - f pantomime
+long long state = INITIAL_STATE;
 
 void setup() {
   Serial.begin(115200);
@@ -46,7 +47,7 @@ void loop() {
     for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[colours[i]];
     game.debug(Serial);
     FastLED.show();
-    delay(10);
+    delay(33);
     game.evolve();
   }
   game.init(state++);

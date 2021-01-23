@@ -12,7 +12,7 @@ typedef Cell Board[BOARD_SIZE][BOARD_SIZE];
 class GameOfLife {
     public:
     GameOfLife();
-    void init(int);
+    void init(long long);
     void evolve();
     void writeColourIndices(byte[]);
     void debug(Print&);

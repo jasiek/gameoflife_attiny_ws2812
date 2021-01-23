@@ -4,10 +4,10 @@ GameOfLife::GameOfLife() {
     this->clearBoard(this->board);
 }
 
-void GameOfLife::init(int matrix) {
+void GameOfLife::init(long long matrix) {
     // tested
-    for (byte x = 2; x < 6; x++) {
-        for (byte y = 2; y < 6; y++) {
+    for (byte x = 0; x < BOARD_SIZE; x++) {
+        for (byte y = 0; y < BOARD_SIZE; y++) {
             this->board[x][y] = matrix & 1;
             matrix /= 2;
         }
