@@ -9,7 +9,7 @@ typedef unsigned char Cell;
 typedef unsigned char byte;
 typedef Cell Board[BOARD_SIZE][BOARD_SIZE];
 
-class GameOfLife {
+struct GameOfLife {
     public:
     GameOfLife();
     void init(long long);
