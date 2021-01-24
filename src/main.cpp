@@ -39,8 +39,9 @@ long long state = INITIAL_STATE;
 void setup() {
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
   FastLED.setBrightness(5);
+  FastLED.setMaxRefreshRate(0, false);
 
-  game.init(state);
+  game.init(&state);
 #ifndef __AVR_ATtiny85__
   Serial.begin(115200);
   game.debug(Serial);

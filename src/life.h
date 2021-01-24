@@ -12,7 +12,7 @@ typedef Cell Board[BOARD_SIZE][BOARD_SIZE];
 struct GameOfLife {
     public:
     GameOfLife();
-    void init(long long);
+    void init(long long*);
     void evolve();
     byte getColourIndex(byte);
 #ifndef __AVR_ATtiny85__
