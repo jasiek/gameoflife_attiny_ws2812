@@ -58,5 +58,5 @@ void loop() {
     delay(33);
     game.evolve();
   }
-  game.init(state++);
+  game.init(&state);
 }
