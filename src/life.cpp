@@ -47,10 +47,6 @@ void GameOfLife::evolve() {
     this->board.copyFrom(newboard);
 }
 
-byte GameOfLife::getColourIndex(register byte index) {
-  return this->board.getColourIdx(index, index); //?
-}
-
 bool GameOfLife::isFinished() {
     for (register byte x = 0; x < BOARD_SIZE; x++)
         for (register byte y = 0; y < BOARD_SIZE; y++)

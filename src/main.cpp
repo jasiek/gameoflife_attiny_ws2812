@@ -50,7 +50,9 @@ void setup() {
 
 void loop() {
   while (!game.isFinished()) {
-    for (byte i = 0; i < NUM_LEDS; i++) leds[i] = colour_map[game.getColourIndex(i)];
+    for (register byte x = 0; x < NUM_LEDS; x++)
+      for (register byte y = 0; y < NUM_LEDS; y++)
+	leds[x * NUM_LEDS + y] = colour_map[game.board.getColourIdx(x, y)];
 #ifndef __AVR_ATtiny85__
     game.debug(Serial);
 #endif

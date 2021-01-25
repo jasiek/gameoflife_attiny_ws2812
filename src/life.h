@@ -14,7 +14,6 @@ struct GameOfLife {
 #endif
     bool isFinished();
 
-    private:
     inline byte countNeighbours(byte, byte);
     inline void updateBoard(Board);
 
