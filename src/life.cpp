@@ -29,22 +29,21 @@ byte GameOfLife::countNeighbours(register byte x, register byte y) {
 
 void GameOfLife::evolve() {
     // tested
-    Board newboard;
-    newboard.clearBoard();
-    newboard.copyFrom(this->board);
-    newboard.decayAll();
+    this->newboard.clearBoard();
+    this->newboard.copyFrom(this->board);
+    this->newboard.decayAll();
     for (register byte x = 0; x < BOARD_SIZE; x++) {
         for (register byte y = 0; y < BOARD_SIZE; y++) {
             register byte neighbours = this->countNeighbours(x, y);
             // light up what needs to be lit up
             if (neighbours == 3 || (neighbours == 2 && this->board.getLit(x, y))) {
                 // colour me red, and light up
-	      newboard.setLit(x, y, 1);
-	      newboard.setColourIdx(x, y, 8);
+	      this->newboard.setLit(x, y, 1);
+	      this->newboard.setColourIdx(x, y, 8);
             }
         }
     }
-    this->board.copyFrom(newboard);
+    this->board.copyFrom(this->newboard);
 }
 
 bool GameOfLife::isFinished() {

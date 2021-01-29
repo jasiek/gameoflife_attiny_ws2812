@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <string.h>
-#include <board.h>
-#define DECAY(x) ((x < 4) ? 0 : (((x >> 1) - 1) << 1))
+#include "board.h"
 
 struct GameOfLife {
     public:
@@ -18,4 +17,5 @@ struct GameOfLife {
     inline void updateBoard(Board);
 
     Board board;
+    Board newboard;
 };

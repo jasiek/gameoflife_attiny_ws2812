@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <FastLED.h>
-#include <life.h>
+#include "life.h"
 
 #define NUM_LEDS BOARD_SIZE * BOARD_SIZE
 #define CHIPSET WS2812
@@ -50,8 +50,8 @@ void setup() {
 
 void loop() {
   while (!game.isFinished()) {
-    for (register byte x = 0; x < NUM_LEDS; x++)
-      for (register byte y = 0; y < NUM_LEDS; y++)
+    for (register byte x = 0; x < BOARD_SIZE; x++)
+      for (register byte y = 0; y < BOARD_SIZE; y++)
 	leds[x * NUM_LEDS + y] = colour_map[game.board.getColourIdx(x, y)];
 #ifndef __AVR_ATtiny85__
     game.debug(Serial);
