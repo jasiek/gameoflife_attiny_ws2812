@@ -15,7 +15,7 @@ struct Board {
   void decayAll();
   void copyFrom(Board &);
 
-private:
+  //private:
   byte colorval(byte, byte);
   void setcolorval(byte, byte, byte);
 };

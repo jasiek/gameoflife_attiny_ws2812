@@ -5,7 +5,7 @@
 struct GameOfLife {
     public:
     GameOfLife();
-    void init(long long*);
+    void init(unsigned long long*);
     void evolve();
     byte getColourIndex(byte);
 #ifndef __AVR_ATtiny85__
