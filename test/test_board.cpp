@@ -38,11 +38,24 @@ void test_count_neighbours(void) {
     for (byte y = 0; y < BOARD_SIZE; y++)
       TEST_ASSERT_EQUAL(0, g.countNeighbours(x, y));
 
-  state = 1;
+
+  // 11100000
+  // 11100000
+  // 11100000
+  // 00000000
+  state = 7;
+  state <<= 8;
+  state += 7;
+  state <<= 8;
+  state += 7;
+
   g.init(&state);
-  TEST_ASSERT_EQUAL(0, g.countNeighbours(0, 0));
-  TEST_ASSERT_EQUAL(1, g.countNeighbours(1, 1));
-		    
+  TEST_ASSERT_EQUAL(0, g.countNeighbours(4, 4));
+  TEST_ASSERT_EQUAL(1, g.countNeighbours(3, 3));
+  TEST_ASSERT_EQUAL(2, g.countNeighbours(3, 0));
+  TEST_ASSERT_EQUAL(3, g.countNeighbours(3, 1));
+  TEST_ASSERT_EQUAL(3, g.countNeighbours(2, 0));
+  TEST_ASSERT_EQUAL(5, g.countNeighbours(2, 1));
 }
 
 // board.cpp
