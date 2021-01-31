@@ -51,23 +51,23 @@ void setup() {
 #endif
 }
 
+void displayState() {
+  for (register byte x = 0; x < BOARD_SIZE; x++)
+    for (register byte y = 0; y < BOARD_SIZE; y++)
+      leds[x + y * BOARD_SIZE] = colour_map[game.board.getColourIdx(x, y)];
+    FastLED.show();
+  delay(100);
+}
+
 void loop() {
-  int generation = 0;
+  displayState();
+  
   while (!game.isFinished()) {
 #ifndef __AVR_ATtiny85__
     game.debug(Serial);
 #endif
-    for (register byte x = 0; x < BOARD_SIZE; x++)
-      for (register byte y = 0; y < BOARD_SIZE; y++)
-	leds[x + y * BOARD_SIZE] = colour_map[game.board.getColourIdx(x, y)];
-    FastLED.show();
-    delay(33);
     game.evolve();
-
-    delay(1000);
-    generation++;
+    displayState();
   }
-  Serial.println(generation);
-  while(1);
 }
 #endif
