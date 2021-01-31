@@ -2,17 +2,17 @@
 #include <string.h>
 
 // DONE
-inline byte chunk(/* register */ byte x, /* register */ byte y) {
+inline byte chunk(register byte x, register byte y) {
   /*
    * Find a chunk (2 bytes) which includes the 3 bit value we're interested in.
    * The value can occur at a boundary => we need 16 bits.
    */
-  /* register */ byte bit_offset = BITS_PER_PIXEL * (x + y * BOARD_SIZE);
+  register byte bit_offset = BITS_PER_PIXEL * (x + y * BOARD_SIZE);
   return bit_offset / 8;
 }
 
 // DONE
-inline byte shiftval(/* register */ byte x, /* register */ byte y) {
+inline byte shiftval(register byte x, register byte y) {
   /*
    * Suppose we have the 16 bits we're interested in at hand. By how much
    * do we need to shift to the right to be able to mask the 3 bit value
@@ -20,16 +20,16 @@ inline byte shiftval(/* register */ byte x, /* register */ byte y) {
    */
 
   // How many bits are there to the left of this chunk?
-  /* register */ byte left_bit_offset = BITS_PER_PIXEL * (x + y * BOARD_SIZE);
+  register byte left_bit_offset = BITS_PER_PIXEL * (x + y * BOARD_SIZE);
   left_bit_offset %= 8;
 
   return 16 - 3 - left_bit_offset;
 }
 
 // DONE
-byte Board::colorval(/* register */ byte x, /* register */ byte y) {
-  /* register */ word theChunk = 0;
-  /* register */ byte chunkNum = chunk(x, y);
+byte Board::colorval(register byte x, register byte y) {
+  register word theChunk = 0;
+  register byte chunkNum = chunk(x, y);
   theChunk = this->storage[chunkNum];
   theChunk <<= 8;
   theChunk += this->storage[chunkNum + 1];
@@ -37,16 +37,16 @@ byte Board::colorval(/* register */ byte x, /* register */ byte y) {
   return (byte)(theChunk & 7);
 }
 
-void Board::setcolorval(/* register */ byte x, /* register */ byte y, /* register */ byte val) {
+void Board::setcolorval(register byte x, register byte y, register byte val) {
   // copy chunk
-  /* register */ word theChunk = 0;
-  /* register */ byte chunkNum = chunk(x, y);
+  register word theChunk = 0;
+  register byte chunkNum = chunk(x, y);
   theChunk = this->storage[chunkNum];
   theChunk <<= 8;
   theChunk += this->storage[chunkNum + 1];
   
   // knock out masked bits with & (11000111111)
-  /* register */ byte left_bit_offset = BITS_PER_PIXEL * (x + y * BOARD_SIZE);
+  register byte left_bit_offset = BITS_PER_PIXEL * (x + y * BOARD_SIZE);
   left_bit_offset %= 8;
 
   word mask = 7;
@@ -66,22 +66,22 @@ void Board::setcolorval(/* register */ byte x, /* register */ byte y, /* registe
 }
 
 // DONE
-byte Board::getLit(/* register */ byte x, /* register */ byte y) {
+byte Board::getLit(register byte x, register byte y) {
   return this->colorval(x, y) == 7;
 }
 
 // DONE
-void Board::setLit(/* register */ byte x, /* register */ byte y, /* register */ byte val) {
+void Board::setLit(register byte x, register byte y, register byte val) {
   this->setcolorval(x, y, val ? 7 : 0);
 }
 
 // DONE
-byte Board::getColourIdx(/* register */ byte x, /* register */ byte y) {
+byte Board::getColourIdx(register byte x, register byte y) {
   return this->colorval(x, y);
 }
 
 // DONE
-void Board::setColourIdx(/* register */ byte x, /* register */ byte y, /* register */ byte val) {
+void Board::setColourIdx(register byte x, register byte y, register byte val) {
   return this->setcolorval(x, y, val);
 }
 
@@ -93,9 +93,9 @@ void Board::clearBoard() {
 // DONE
 void Board::decayAll() {
   // can be optimized?
-  for (/* register */ byte x = 0; x < BOARD_SIZE; x++)
-    for (/* register */ byte y = 0; y < BOARD_SIZE; y++) {
-      /* register */ byte color = this->getColourIdx(x, y);
+  for (register byte x = 0; x < BOARD_SIZE; x++)
+    for (register byte y = 0; y < BOARD_SIZE; y++) {
+      register byte color = this->getColourIdx(x, y);
       if (color > 0) color--;
       this->setColourIdx(x, y, color);
     }
