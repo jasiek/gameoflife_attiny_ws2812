@@ -20,7 +20,6 @@ const unsigned long colour_map[] = {
   CRGB::Blue,
   CRGB::Turquoise,
   CRGB::Green,
-  CRGB::GreenYellow,
   CRGB::Yellow,
   CRGB::OrangeRed,
   CRGB::Red
@@ -53,18 +52,22 @@ void setup() {
 }
 
 void loop() {
+  int generation = 0;
   while (!game.isFinished()) {
 #ifndef __AVR_ATtiny85__
     game.debug(Serial);
 #endif
     for (register byte x = 0; x < BOARD_SIZE; x++)
       for (register byte y = 0; y < BOARD_SIZE; y++)
-	leds[x * NUM_LEDS + y] = colour_map[game.board.getColourIdx(x, y)];
+	leds[x + y * BOARD_SIZE] = colour_map[game.board.getColourIdx(x, y)];
     FastLED.show();
     delay(33);
     game.evolve();
 
     delay(1000);
+    generation++;
   }
+  Serial.println(generation);
+  while(1);
 }
 #endif

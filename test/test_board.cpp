@@ -10,8 +10,10 @@ void test_init(void) {
 
   g.init(&all_lit);
   for (byte x = 0; x < BOARD_SIZE; x++)
-    for (byte y = 0; y < BOARD_SIZE; y++)
+    for (byte y = 0; y < BOARD_SIZE; y++) {
       TEST_ASSERT_EQUAL(1, g.board.getLit(x, y));
+      TEST_ASSERT_EQUAL(7, g.board.getColourIdx(x, y));
+    }
 }
 
 void test_finished(void) {

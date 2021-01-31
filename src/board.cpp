@@ -103,5 +103,5 @@ void Board::decayAll() {
 
 // DONE
 void Board::copyFrom(Board &board) {
-  memcpy(board.storage, this->storage, BYTES_OF_STORAGE);
+  memcpy(this->storage, board.storage, BYTES_OF_STORAGE);
 }

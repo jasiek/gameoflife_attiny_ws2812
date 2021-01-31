@@ -39,7 +39,6 @@ void GameOfLife::evolve() {
             if (neighbours == 3 || (neighbours == 2 && this->board.getLit(x, y))) {
                 // colour me red, and light up
 	      this->newboard.setLit(x, y, 1);
-	      this->newboard.setColourIdx(x, y, 8);
             }
         }
     }
@@ -49,21 +48,15 @@ void GameOfLife::evolve() {
 bool GameOfLife::isFinished() {
     for (byte x = 0; x < BOARD_SIZE; x++)
         for (byte y = 0; y < BOARD_SIZE; y++)
-	  // Perhaps wait until all cells are dark?
-	  if (this->board.getLit(x, y))
+	  // Wait until all cells are dark.
+	  if (this->board.getColourIdx(x, y))
                 return false;
     return true;
 }
 
 #ifndef __AVR_ATtiny85__
 void GameOfLife::debug(Print &p) {
-  // for (int i = 0; i < BYTES_OF_STORAGE; i++) {
-  //   Serial.print(i);
-  //   Serial.print(" ");
-  //   Serial.println(this->board.storage[i], BIN);
-  // }
-  // return;
-  
+  p.println();
   for (byte x = 0; x < BOARD_SIZE; x++) {
     for (byte y = 0; y < BOARD_SIZE; y++) {
       p.print(this->board.getLit(x, y) ? "*" : " ");
