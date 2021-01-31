@@ -43,7 +43,7 @@ void setup() {
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
   FastLED.setBrightness(5);
 #ifdef DEBUG
-  FastLED.setMaxRefreshRate(0, false);
+    FastLED.setMaxRefreshRate(0, false);
 #endif
 
   game.init(&state);

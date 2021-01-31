@@ -64,17 +64,17 @@ void GameOfLife::debug(Print &p) {
   // }
   // return;
   
-    for (byte x = 0; x < BOARD_SIZE; x++) {
-        for (byte y = 0; y < BOARD_SIZE; y++) {
-	  p.print(this->board.getLit(x, y) ? "*" : " ");
-            p.print(" ");
-        }
-        p.print(" | ");
-        for (byte y = 0; y < BOARD_SIZE; y++) {
-	  p.print(this->board.getColourIdx(x, y));
-            p.print(" ");
-        }
-        p.println();
+  for (byte x = 0; x < BOARD_SIZE; x++) {
+    for (byte y = 0; y < BOARD_SIZE; y++) {
+      p.print(this->board.getLit(x, y) ? "*" : " ");
+      p.print(" ");
     }
+    p.print(" | ");
+    for (byte y = 0; y < BOARD_SIZE; y++) {
+      p.print(this->board.getColourIdx(x, y));
+      p.print(" ");
+    }
+    p.println();
+  }
 }
 #endif
