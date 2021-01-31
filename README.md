@@ -5,6 +5,14 @@
 
 To get game of life working on the smallest MCU I could find in my workshop. My initial idea was to just display the state of the game, but then I realised that the WS2812 is an RGB array, which means you can also display pixels which were lit during previous states of the game.
 
+## Wiring diagram
+
+| Arduino Uno | ATTINY85 | WS2812 |
+| ----------- | -------- | ------ |
+| GND         | GND      | GND    |
+| +5V         | +5V      | +5V    |
+| 10          | PB0      | DIN    |
+
 ## Implementation
 
 I've decided to stick with C, as I'm not familiar enough with AVR assembly to implement this. While experimenting I've discovered a number of tools and techniques to make developing palatable on hardware which doesn't have enough space for printf-style debugging.
