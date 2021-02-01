@@ -41,5 +41,10 @@ My initial implementation would use the LSB to indicate whether a LED was lit - 
 
 ### Summary
 
-RAM use is dominated by the FastLED library. There's a variable (`PixelController<(EOrder)66, 1, 4294967295ul>::init_binary_dithering()::R`) which occupies ~260 bytes, so that may be worth looking at given I don't do any dithering. All calls use register variables, so stack use is minimal.
+RAM use is dominated by the FastLED library. All calls use register variables, so stack use is minimal.
+
+### Caveats
+
+Sometimes it is necessary to reprogram the board a couple of times. Why this happens is unclear.
+
 

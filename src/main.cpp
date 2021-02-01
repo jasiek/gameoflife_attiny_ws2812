@@ -6,7 +6,6 @@
 #define NUM_LEDS BOARD_SIZE * BOARD_SIZE
 #define CHIPSET WS2812
 #define COLOR_ORDER GRB
-#define INITIAL_STATE 2779831273LL
 
 #ifdef __AVR_ATtiny85__
 #define LED_PIN PB0
@@ -31,12 +30,15 @@ GameOfLife game;
 
 // Interesting states:
 // 1989 - loops
-// 8560 - glider
 // 3754 - end state is a letter D
-// 27712 - f pantomime
-// 2779831273LL - who knows
+// 131846 - f pantomime
+// 235406336 - https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)
+// 970717134848 - Die hard
+// 46369272376832 - ?
+// 252956460974080 - Acorn
+// 16926019738927104 - Lightweight Spaceship
 // 18446744073709551615LL - all lit
-unsigned long long state = INITIAL_STATE;
+unsigned long long state = 252956460974080;
 
 void setup() {
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);

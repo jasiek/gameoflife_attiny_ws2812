@@ -17,5 +17,4 @@ struct GameOfLife {
     inline void updateBoard(Board);
 
     Board board;
-    Board newboard;
 };
