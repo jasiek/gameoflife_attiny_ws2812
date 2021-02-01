@@ -1,6 +1,8 @@
 
 # Game of Life on the ATTINY85
 
+![](media/animation.gif)
+
 ## Motivation
 
 To get game of life working on the smallest MCU I could find in my workshop. My initial idea was to just display the state of the game, but then I realised that the WS2812 is an RGB array, which means you can also display pixels which were lit during previous states of the game.
