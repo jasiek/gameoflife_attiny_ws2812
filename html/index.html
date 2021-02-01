@@ -1,0 +1,66 @@
+<html>
+  <body>
+    <table>
+    </table>
+    <div>
+      <input id="number" type="text" value="0"></input>
+    </div>
+  </body>
+  <script>
+    function fill() {
+      var table = document.querySelector("table");
+      for (var x = 0; x < 8; x++) {
+        var tr = document.createElement("tr");
+        for (var y = 0; y < 8; y++) {
+          var td = document.createElement("td");
+          var checkbox = document.createElement("input");
+          var type = document.createAttribute("type");
+          type.value = "checkbox";
+          checkbox.setAttributeNode(type);
+          td.appendChild(checkbox);
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      }
+    }
+    
+    function read() {
+      var cells = document.querySelectorAll("input[type=checkbox]");
+      var output = "";
+      cells.forEach(cell => {
+        output = (cell.checked ? "1" : "0") + output;
+      });
+      return BigInt("0b" + output);
+    }
+
+    function write(value) {
+      var cells = document.querySelectorAll("input[type=checkbox]");
+      cells.forEach(c => {
+        var lit = value & BigInt(1);
+        if (lit == 1) {
+          c.checked = true;
+        } else {
+          c.checked = false;
+        }
+        value >>= BigInt(1);
+      });
+    }
+
+    (() => {
+      fill();
+
+      var numberBox = document.querySelector("#number");
+
+      numberBox.addEventListener("change", function(e) {
+        var value = BigInt(e.target.value);
+        write(value);
+      });
+
+      document.querySelectorAll("input[type=checkbox]").forEach(element => {
+        element.addEventListener("click", () => {
+          numberBox.value = read();
+        });
+      });
+    })();
+  </script>
+</html>
