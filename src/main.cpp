@@ -45,7 +45,7 @@ void setup() {
     FastLED.setMaxRefreshRate(0, false);
 #endif
 
-  game.init(&state);
+  game.init(state);
 #ifndef __AVR_ATtiny85__
   Serial.begin(115200);
 #endif
@@ -69,5 +69,7 @@ void loop() {
     game.evolve();
     displayState();
   }
+
+  game.init(state);
 }
 #endif

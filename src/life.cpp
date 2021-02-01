@@ -4,12 +4,12 @@ GameOfLife::GameOfLife() {
   this->board.clearBoard();
 }
 
-void GameOfLife::init(unsigned long long *matrix) {
+void GameOfLife::init(unsigned long long matrix) {
     // we don't care if the incoming value gets modified
     for (byte x = 0; x < BOARD_SIZE; x++) {
         for (byte y = 0; y < BOARD_SIZE; y++) {
-	  this->board.setLit(x, y, *matrix & 1);
-	  *matrix >>= 1;
+	        this->board.setLit(x, y, matrix & 1);
+	        matrix >>= 1;
         }
     }
 }
